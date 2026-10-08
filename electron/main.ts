@@ -50,7 +50,7 @@ function createWindow(): void {
     backgroundColor: '#101211',
     title: 'FlowClient',
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(app.getAppPath(), 'dist-electron', 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: true,
@@ -60,7 +60,7 @@ function createWindow(): void {
   if (process.env.VITE_DEV_SERVER_URL) {
     void window.loadURL(process.env.VITE_DEV_SERVER_URL);
   } else {
-    void window.loadFile(path.join(__dirname, '../build/renderer/index.html'));
+    void window.loadFile(path.join(app.getAppPath(), 'build', 'renderer', 'index.html'));
   }
 }
 
