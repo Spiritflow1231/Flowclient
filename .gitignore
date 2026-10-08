@@ -1,3 +1,9 @@
+# Node and Electron
+node_modules/
+dist-electron/
+.vite/
+build/icon.ico
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

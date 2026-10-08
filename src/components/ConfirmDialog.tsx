@@ -1,0 +1,5 @@
+import { AlertTriangle, X } from 'lucide-react';
+
+export function ConfirmDialog({ title, message, onCancel, onConfirm }: { title: string; message: string; onCancel: () => void; onConfirm: () => void }) {
+  return <div className="modal-backdrop confirm-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) onCancel(); }}><section className="modal confirm-modal" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title"><header className="modal-header"><div className="modal-icon modal-icon--warning"><AlertTriangle size={19} /></div><div><span className="section-kicker">PERMANENT ACTION</span><h2 id="confirm-title">{title}</h2></div><button className="icon-button modal-close" onClick={onCancel} aria-label="Cancel"><X size={18} /></button></header><div className="confirm-copy"><p>{message}</p><div className="confirm-warning">This cannot be undone.</div></div><footer className="modal-footer"><button className="secondary-button" onClick={onCancel}>Keep it</button><button className="danger-button" onClick={onConfirm}><AlertTriangle size={15} /> Delete permanently</button></footer></section></div>;
+}

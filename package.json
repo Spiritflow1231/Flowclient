@@ -1,0 +1,87 @@
+{
+  "name": "flowclient",
+  "productName": "FlowClient",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A modern Minecraft launcher built with Electron and React.",
+  "author": "FlowClient",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite --host 127.0.0.1\" \"wait-on http://127.0.0.1:5173 && cross-env VITE_DEV_SERVER_URL=http://127.0.0.1:5173 electron .\"",
+    "dev:web": "vite --host 127.0.0.1",
+    "dev:electron": "npm run dev",
+    "build": "node scripts/generate-windows-icon.mjs && tsc -p tsconfig.electron.json && vite build",
+    "dist": "npm run build && electron-builder --win --x64",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.electron.json --noEmit",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/dm-mono": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
+    "lucide-react": "^0.468.0",
+    "minecraft-launcher-core": "^3.18.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "overrides": {
+    "adm-zip": "^0.6.1",
+    "request": "npm:@cypress/request@^4.0.1",
+    "uuid": "^11.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.0",
+    "cross-env": "^10.1.0",
+    "electron": "^44.7.0",
+    "electron-builder": "^26.0.12",
+    "typescript": "~5.7.2",
+    "vite": "^6.0.5",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.flowclient.launcher",
+    "productName": "FlowClient",
+    "asar": true,
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "files": [
+      "dist-electron/**/*",
+      "build/renderer/**/*",
+      "package.json"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "artifactName": "FlowClient-Setup.${ext}",
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "FlowClient"
+    },
+    "portable": {
+      "artifactName": "FlowClient.${ext}"
+    }
+  }
+}
